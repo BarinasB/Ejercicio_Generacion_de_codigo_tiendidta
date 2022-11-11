@@ -10,7 +10,7 @@
 
  se colocaron las entidades en el archivo tiendita.ent de la forma que establecen las librerias jinja y textx
 
- se procedio a crear las plantillas de generacion de codigo para la capa de controladores web y de repositorio de base de datos, en los archivos 
+ se procedio a crear las plantillas de generacion de codigo para la capa de microservicios web y de repositorio de base de datos, en los archivos 
  
  repositories.template 
  restserv.template 
