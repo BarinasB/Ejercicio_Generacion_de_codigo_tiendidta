@@ -1,0 +1,38 @@
+from flask import Blueprint
+
+{{entity.name}}_api = Blueprint('{{entity.name}}_api', __name__)
+
+@{{entity.name}}_api.route("/{{entity.name}}/<int:id>",methods = ['GET'])
+def consultar{{entity.name|capitalize}}(id):
+	return db.session.query(User).filter({{entity.name}}.id.in_([id])).all()
+	
+
+@{{entity.name}}_api.route("/{{entity.name}}",methods = ['POST'])
+def insertar{{entity.name|capitalize}}():
+	if (request.headers.get('Content-Type') == 'application/json'):
+		json = request.json
+		objeto_insertar= {{entity.name}}({% for property in entity.properties %}{{property.name}}="json['{{property.name}}']"{% if not loop.last %}, {% endif %} {% endfor %})
+		db.session.add(objeto_insertar)
+		db.session.commit()
+	else:
+	    return 'Contenido no valido', 400
+
+@{{entity.name}}_api.route("/{{entity.name}}",methods = ['PUT'])
+def editar{{entity.name|capitalize}}(id):
+	if (request.headers.get('Content-Type') == 'application/json'):
+		json = request.json
+		obj_actualizar = db.session.query(User).filter({{entity.name}}.id.in_([id])).all()
+		{% for property in entity.properties %}
+		obj_actualizar[0].{{property.name}} = json['{{property.name}}']
+		{% endfor %}
+		db.session.commit()
+	    else:
+	        return 'Contenido no valido', 400
+
+@{{entity.name}}_api.route("/{{entity.name}}/<int:id>",methods = ['DELETE'])
+def eliminar{{entity.name|capitalize}}(id):
+	objetos_eliminar = db.session.query(User).filter({{entity.name}}.id.in_([id])).all()
+	session.delete(objetos_eliminar[0])
+	db.session.commit()
+
+

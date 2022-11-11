@@ -1,0 +1,17 @@
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
+
+class {{entity.name}}(Base):
+	__tablename__ = {{entity.name}}
+	{% set dict_externas = {} %}
+	{% for property in entity.properties %}
+	  {% if property is entity %}
+	{{property.name}} = column(INTEGER, ForeignKey("{{property.type.name}}.id"))
+	  {% else %}
+	  {% if property.name == 'id'%}
+	{{property.name}} = Column({{property.type|sql_type}}, Sequence("{{entity.name}}_id_seq"), primary_key=True)
+	  {% else %}
+	{{property.name}} = Column({{property.type|sql_type}})
+	  {% endif %}
+        {% endif %}
+	{% endfor %}

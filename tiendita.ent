@@ -1,0 +1,70 @@
+                
+entity Rol{
+  id : integer
+  nombre : string             
+}
+
+entity Persona{
+  id : string 
+  identificacion : integer       
+  nombres : string     
+  apellidos : string
+  telefono : integer
+  correo :  string
+}
+
+entity Producto {
+  id : integer
+  nombre : string
+  unidad_medida : string
+  precio_unitario : integer
+  cantidad : integer
+}
+
+entity Venta {
+  id : integer
+  fecha : string
+  comprador : Persona
+  vendedor : Persona
+  valor_total : integer
+}
+
+entity Direccion {
+  id : integer
+  texto : string
+}                      
+
+entity Usuario{
+  id : integer       
+  nombre : string     
+  clave: string  
+  persona: Persona        
+}
+
+entity RolUsuario{
+  rol: Rol
+  usuario: Usuario
+}                     
+
+entity Direccion_usuario {
+  direccion : Direccion
+  usuario : Usuario
+  esDireccion_actual : integer
+}
+
+entity pedido{
+  id : integer
+  fecha : string
+  fecha_entrega : string 
+  direccion : Direccion
+  domiciliario : Persona
+  venta : Venta
+}
+
+entity Producto {
+  id : integer
+  nombre : string
+  unidad_medida : string
+  precio_unitario : integer
+  cantidad : integer
+}
